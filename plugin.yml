@@ -1,0 +1,109 @@
+main: me.ryvix.ClaimControl.ClaimControl
+name: ClaimControl
+version: 1.0b
+author: ryvix
+description: Provides more control over Grief Prevention claims.
+depend: [GriefPrevention]
+softdepend: [Multiverse-Core]
+commands:
+    claimcontrol:
+        aliases: [cc]
+        description: The one and only ClaimControl command.
+        usage: /<command>
+permissions:
+    claimcontrol.*:
+        description: Gives all ClaimControl permissions.
+        children:
+            claimcontrol.admin: true
+            claimcontrol.list: true
+            claimcontrol.list.others: true
+            claimcontrol.add: true
+            claimcontrol.remove: true
+            claimcontrol.flags.animals: true
+            claimcontrol.flags.monsters: true
+            claimcontrol.flags.pvp: true
+            claimcontrol.flags.charge: true
+            claimcontrol.flags.time: true
+            claimcontrol.flags.trust: true
+            claimcontrol.flags.entrymsg: true
+            claimcontrol.flags.exitmsg: true
+            claimcontrol.flags.private: true
+            claimcontrol.flags.box: true
+            claimcontrol.flags.allow: true
+            claimcontrol.flags.deny: true
+    claimcontrol.admin:
+        description: Gives all permissions and access to run any ClaimControl command on any claim.
+        children:
+            claimcontrol.list: true
+            claimcontrol.list.others: true
+            claimcontrol.add: true
+            claimcontrol.remove: true
+            claimcontrol.flags.animals: true
+            claimcontrol.flags.monsters: true
+            claimcontrol.flags.pvp: true
+            claimcontrol.flags.charge: true
+            claimcontrol.flags.time: true
+            claimcontrol.flags.trust: true
+            claimcontrol.flags.entrymsg: true
+            claimcontrol.flags.exitmsg: true
+            claimcontrol.flags.private: true
+            claimcontrol.flags.box: true
+            claimcontrol.flags.allow: true
+            claimcontrol.flags.deny: true
+    claimcontrol.player:
+        description: Gives ClaimControl permissions good for regular players.
+        children:
+            claimcontrol.list: true
+            claimcontrol.add: true
+            claimcontrol.remove: true
+            claimcontrol.flags.private: true
+            claimcontrol.flags.allow: true
+            claimcontrol.flags.deny: true
+    claimcontrol.list:
+        description: Allows claim owners to list flags in their claims.
+        default: op
+    claimcontrol.list.others:
+        description: Allows listing flags in other players claims.
+        default: op
+    claimcontrol.add:
+        description: Allows claim owners to add flags to their claims.
+        default: op
+    claimcontrol.remove:
+        description: Allows claim owners to remove flags from their claims.
+        default: op
+    claimcontrol.flags.animals:
+        description: Allows using the animals flag.
+        default: op
+    claimcontrol.flags.monsters:
+        description: Allows using the monsters flag.
+        default: op
+    claimcontrol.flags.pvp:
+        description: Allows using the pvp flag.
+        default: op
+    claimcontrol.flags.charge:
+        description: Allows using the charge flag.
+        default: op
+    claimcontrol.flags.time:
+        description: Allows using the time flag.
+        default: op
+    claimcontrol.flags.trust:
+        description: Allows using the trust flag.
+        default: op
+    claimcontrol.flags.entrymsg:
+        description: Allows using the entrymsg flag.
+        default: op
+    claimcontrol.flags.exitmsg:
+        description: Allows using the exitmsg flag.
+        default: op
+    claimcontrol.flags.private:
+        description: Allows using the private flag.
+        default: op
+    claimcontrol.flags.box:
+        description: Allows using the box flag.
+        default: op
+    claimcontrol.flags.allow:
+        description: Allows using the allow flag.
+        default: op
+    claimcontrol.flags.deny:
+        description: Allows using the deny flag.
+        default: op

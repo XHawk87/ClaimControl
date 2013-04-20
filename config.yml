@@ -1,0 +1,13 @@
+# ClaimControl config file
+# 
+config:
+  check_claims_ticks: 60
+  remove_monsters_ticks: 60
+  database: sqlite
+  mysql:
+    url:
+      host: localhost
+      port: 3306
+      database: database
+    username: username
+    password: password
