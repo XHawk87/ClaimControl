@@ -15,6 +15,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrownPotion;
@@ -418,6 +419,11 @@ public class CCEventHandler implements Listener {
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 
 		Entity monster = event.getEntity();
+
+		// only monsters
+		if (!(monster instanceof Monster)) {
+			return;
+		}
 
 		// if monster is in a claim
 		if (plugin.claim.check(monster.getLocation())) {
