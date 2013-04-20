@@ -319,6 +319,12 @@ public class ClaimControl extends JavaPlugin {
 				if (sender.hasPermission("claimcontrol.list")) {
 					sender.sendMessage(ChatColor.YELLOW + "/claimcontrol list [flagname]" + ChatColor.WHITE + " List the flags in the claim you are currently in or if a flag is given it will list the values for the given flag.");
 				}
+				if (sender.hasPermission("claimcontrol.flags.allow")) {
+					sender.sendMessage(ChatColor.YELLOW + "/claimcontrol allow <player>" + ChatColor.WHITE + " A shortcut to add a player to the allow list.");
+				}
+				if (sender.hasPermission("claimcontrol.flags.deny")) {
+					sender.sendMessage(ChatColor.YELLOW + "/claimcontrol deny <player>" + ChatColor.WHITE + " A shortcut to add a player to the deny list.");
+				}
 				if (sender.hasPermission("claimcontrol.flags.entrymsg")) {
 					sender.sendMessage(ChatColor.YELLOW + "/claimcontrol entrymsg <value>" + ChatColor.WHITE + " A shortcut to set the entrymsg flag.");
 				}
@@ -345,10 +351,10 @@ public class ClaimControl extends JavaPlugin {
 				 * " Any animals that enter the claim without this flag will disappear. Values: true, false"); }
 				 */
 				if (sender.hasPermission("claimcontrol.flags.monsters")) {
-					sender.sendMessage(ChatColor.YELLOW + "monsters" + ChatColor.WHITE + " Any monsters that enter the claim without this flag will disappear. Values: true, false");
+					sender.sendMessage(ChatColor.YELLOW + "monsters" + ChatColor.WHITE + " Any monsters that enter the claim without this flag will disappear. Values: true, false. Default: false");
 				}
 				if (sender.hasPermission("claimcontrol.flags.pvp")) {
-					sender.sendMessage(ChatColor.YELLOW + "pvp" + ChatColor.WHITE + "  Adding this flag will enable PvP in the claim. Values: true, false");
+					sender.sendMessage(ChatColor.YELLOW + "pvp" + ChatColor.WHITE + " Adding this flag will enable PvP in the claim. Values: true, false. Default: false");
 				}
 				if (sender.hasPermission("claimcontrol.flags.entrymsg")) {
 					sender.sendMessage(ChatColor.YELLOW + "entrymsg" + ChatColor.WHITE + " Set an entry message. Example: /claimcontrol add entrymsg Your entry message.");
@@ -370,7 +376,7 @@ public class ClaimControl extends JavaPlugin {
 					sender.sendMessage(ChatColor.YELLOW + "deny" + ChatColor.WHITE + " Deny a player to enter a public claim. Example: /claimcontrol add deny PlayerName");
 				}
 				if (sender.hasPermission("claimcontrol.flags.private")) {
-					sender.sendMessage(ChatColor.YELLOW + "private" + ChatColor.WHITE + " Set a claim as private, preventing anyone from entering unless you allow them. Note that you can use /claimcontrol private to toggle this value. Values: true, false");
+					sender.sendMessage(ChatColor.YELLOW + "private" + ChatColor.WHITE + " Set a claim as private, preventing anyone from entering unless you allow them. Note that you can use /claimcontrol private to toggle this value. Values: true, false. Default: false");
 				}
 				/*
 				 * if (sender.hasPermission("claimcontrol.flags.box")) { sender.sendMessage(ChatColor.YELLOW + "box" + ChatColor.WHITE +
