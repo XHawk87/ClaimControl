@@ -3,7 +3,7 @@ name: ClaimControl
 version: 1.0b
 author: ryvix
 description: Provides more control over Grief Prevention claims.
-depend: [GriefPrevention]
+depend: [GriefPrevention, SQLibrary]
 softdepend: [Multiverse-Core]
 commands:
     claimcontrol:
