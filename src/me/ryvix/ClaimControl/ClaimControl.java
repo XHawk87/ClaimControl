@@ -36,7 +36,7 @@ public class ClaimControl extends JavaPlugin {
 	public Flags flags;
 	public Claim claim;
 	public Economy econ;
-	private ConcurrentHashMap<String, CheckPlayer> checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
+	private ConcurrentHashMap<String, CheckPlayer> checkPlayers;
 	private BukkitTask claimTask;
 	private BukkitTask mobsTask;
 	public List<World> worlds;
@@ -123,7 +123,7 @@ public class ClaimControl extends JavaPlugin {
 		flags = null;
 		claim = null;
 		econ = null;
-		checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
+		checkPlayers = null;
 		claimTask = null;
 		mobsTask = null;
 		worlds = null;
@@ -222,6 +222,9 @@ public class ClaimControl extends JavaPlugin {
 
 		// claim functions
 		claim = new Claim(this);
+		
+		// initialize checkPlayers
+		checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
 	}
 
 	/**
