@@ -337,7 +337,7 @@ public class Flags {
 	public boolean getAnimals(Long claimid) {
 		String result = getFlag(claimid, "animals");
 		if (result == null) {
-			result = "true";
+			result = plugin.config.getString("config.default_flags.animals").toLowerCase();
 		}
 		return Boolean.valueOf(result);
 	}
@@ -345,7 +345,7 @@ public class Flags {
 	public boolean getMonsters(Long claimid) {
 		String result = getFlag(claimid, "monsters");
 		if (result == null) {
-			result = "true";
+			result = plugin.config.getString("config.default_flags.monsters").toLowerCase();
 		}
 		return Boolean.valueOf(result);
 	}
@@ -353,7 +353,7 @@ public class Flags {
 	public boolean getPvp(Long claimid) {
 		String result = getFlag(claimid, "pvp");
 		if (result == null) {
-			result = "true";
+			result = plugin.config.getString("config.default_flags.pvp").toLowerCase();
 		}
 		return Boolean.valueOf(result);
 	}
@@ -392,7 +392,7 @@ public class Flags {
 	public String getEntryMsg(Long claimid) {
 		String result = getFlag(claimid, "entrymsg");
 		if (result == null) {
-			result = "";
+			result = plugin.config.getString("config.default_flags.entrymsg");
 		}
 		return result;
 	}
@@ -400,7 +400,7 @@ public class Flags {
 	public String getExitMsg(Long claimid) {
 		String result = getFlag(claimid, "exitmsg");
 		if (result == null) {
-			result = "";
+			result = plugin.config.getString("config.default_flags.exitmsg");
 		}
 		return result;
 	}
@@ -409,7 +409,7 @@ public class Flags {
 		String result = getFlag(claimid, "private");
 		// System.out.println("private result: " + result);
 		if (result == null) {
-			result = "false";
+			result = plugin.config.getString("config.default_flags.private").toLowerCase();
 		}
 		return Boolean.valueOf(result);
 	}
@@ -417,7 +417,7 @@ public class Flags {
 	public boolean getBox(Long claimid) {
 		String result = getFlag(claimid, "box");
 		if (result == null) {
-			result = "false";
+			result = plugin.config.getString("config.default_flags.box").toLowerCase();
 		}
 		return Boolean.valueOf(result);
 	}

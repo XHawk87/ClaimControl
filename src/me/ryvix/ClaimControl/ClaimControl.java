@@ -143,19 +143,19 @@ public class ClaimControl extends JavaPlugin {
 		config = YamlConfiguration.loadConfiguration(configFile);
 
 		// add defaults
-		if (!config.contains("config.default.entrymsg")) {
+		if (!config.contains("config.default_flags.entrymsg")) {
 			getConfig().addDefault("config.default.entrymsg", "");
 		}
-		if (!config.contains("config.default.exitmsg")) {
+		if (!config.contains("config.default_flags.exitmsg")) {
 			getConfig().addDefault("config.default.exitmsg", "");
 		}
-		if (!config.contains("config.default.monsters")) {
+		if (!config.contains("config.default_flags.monsters")) {
 			getConfig().addDefault("config.default.monsters", "true");
 		}
-		if (!config.contains("config.default.private")) {
+		if (!config.contains("config.default_flags.private")) {
 			getConfig().addDefault("config.default.private", "false");
 		}
-		if (!config.contains("config.default.pvp")) {
+		if (!config.contains("config.default_flags.pvp")) {
 			getConfig().addDefault("config.default.pvp", "true");
 		}
 		if (!config.contains("config.check_claims_ticks")) {
