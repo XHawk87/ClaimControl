@@ -1,6 +1,12 @@
 # ClaimControl config file
 # 
 config:
+  default_flags:
+    entrymsg: ''
+    exitmsg: ''
+    monsters: true
+    private: false
+    pvp: true
   check_claims_ticks: 60
   remove_monsters_ticks: 60
   database: sqlite

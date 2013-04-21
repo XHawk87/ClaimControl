@@ -337,7 +337,7 @@ public class Flags {
 	public boolean getAnimals(Long claimid) {
 		String result = getFlag(claimid, "animals");
 		if (result == null) {
-			result = "false";
+			result = "true";
 		}
 		return Boolean.valueOf(result);
 	}
@@ -345,7 +345,7 @@ public class Flags {
 	public boolean getMonsters(Long claimid) {
 		String result = getFlag(claimid, "monsters");
 		if (result == null) {
-			result = "false";
+			result = "true";
 		}
 		return Boolean.valueOf(result);
 	}
@@ -353,7 +353,7 @@ public class Flags {
 	public boolean getPvp(Long claimid) {
 		String result = getFlag(claimid, "pvp");
 		if (result == null) {
-			result = "false";
+			result = "true";
 		}
 		return Boolean.valueOf(result);
 	}
