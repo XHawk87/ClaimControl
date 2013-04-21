@@ -11,7 +11,6 @@ package me.ryvix.ClaimControl;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
 import net.milkbowl.vault.economy.Economy;
 import me.ryvix.ClaimControl.Claim;
 
@@ -124,7 +123,7 @@ public class ClaimControl extends JavaPlugin {
 		flags = null;
 		claim = null;
 		econ = null;
-		checkPlayers = null;
+		checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
 		claimTask = null;
 		mobsTask = null;
 		worlds = null;
@@ -398,6 +397,17 @@ public class ClaimControl extends JavaPlugin {
 				 * " Set a claim as a box, preventing anyone from exiting unless you allow them. Values: true, false"); }
 				 */
 				sender.sendMessage(ChatColor.BLACK + "               -+[[]][[]][[]][[]][[]][[]][[]][[]][[]][[]]+-");
+				return true;
+			}
+
+			// reload the plugin
+			if (args[0].equalsIgnoreCase("reload")) {
+				getServer().getPluginManager().disablePlugin(this);
+				getServer().getPluginManager().enablePlugin(this);
+				getLogger().info("Reloaded");
+				if ((sender instanceof Player)) {
+					sender.sendMessage(ChatColor.GREEN + "ClaimControl has been reloaded");
+				}
 				return true;
 			}
 
