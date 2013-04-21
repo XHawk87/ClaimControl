@@ -458,7 +458,7 @@ public class ClaimControl extends JavaPlugin {
 							return true;
 						}
 
-						if (flags.hasFlag(claimid, "private", "true")) {
+						if (flags.getPrivate(claimid)) {
 							flags.removeFlag(claimid, "private");
 							flags.setPrivate(claimid, "false");
 							player.sendMessage(ChatColor.GREEN + "This claim was set as public.");
@@ -480,7 +480,7 @@ public class ClaimControl extends JavaPlugin {
 							return true;
 						}
 
-						if (flags.hasFlag(claimid, "pvp", "true")) {
+						if (flags.getPvp(claimid)) {
 							flags.removeFlag(claimid, "pvp");
 							flags.setPvp(claimid, "false");
 							player.sendMessage(ChatColor.GREEN + "This claim was set as Non-PvP.");
@@ -502,7 +502,7 @@ public class ClaimControl extends JavaPlugin {
 							return true;
 						}
 
-						if (flags.hasFlag(claimid, "monsters", "true")) {
+						if (flags.getMonsters(claimid)) {
 							flags.removeFlag(claimid, "monsters");
 							flags.setMonsters(claimid, "false");
 							player.sendMessage(ChatColor.GREEN + "This claim was set as a monster free zone.");
