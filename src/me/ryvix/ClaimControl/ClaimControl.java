@@ -55,6 +55,13 @@ public class ClaimControl extends JavaPlugin {
 			return;
 		}
 
+		// check for SQLibrary plugin
+		if (this.getServer().getPluginManager().getPlugin("SQLibrary") == null) {
+			this.getLogger().severe("ClamControl requires the SQLibrary plugin but it wasn't found, disabling ClamControl!");
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		// check for Vault plugin
 		/*
 		 * if (this.getServer().getPluginManager().getPlugin("Vault") == null) { this.getLogger().severe("ClamControl requires the Vault plugin but it wasn't found, disabling ClamControl!");
