@@ -8,6 +8,8 @@
 
 package me.ryvix.ClaimControl;
 
+import java.util.UUID;
+
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 
 import org.bukkit.Location;
@@ -44,6 +46,11 @@ public class MobsTask extends BukkitRunnable {
 						continue;
 					}
 
+					// don't remove this mob if it's already set to be removed
+					if (plugin.getEntityUUIDs().contains(entity.getUniqueId())) {
+						continue;
+					}
+
 					// get entity location
 					Location location = entity.getLocation();
 
@@ -58,8 +65,15 @@ public class MobsTask extends BukkitRunnable {
 						// check if claim has monsters flag
 						if (!plugin.flags.getMonsters(plugin.claim.getId(location))) {
 
+							// store entity id so we dont try removing it twice
+							UUID id = entity.getUniqueId();
+							plugin.addEntityUUID(id);
+
 							// remove entity
 							entity.remove();
+
+							// store entity id so we dont try removing it twice
+							plugin.removeEntityUUID(id);
 						}
 					}
 				}

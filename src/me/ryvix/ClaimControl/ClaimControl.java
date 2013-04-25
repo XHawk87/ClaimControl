@@ -9,7 +9,9 @@
 package me.ryvix.ClaimControl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.milkbowl.vault.economy.Economy;
 import me.ryvix.ClaimControl.Claim;
@@ -37,6 +39,7 @@ public class ClaimControl extends JavaPlugin {
 	public Claim claim;
 	public Economy econ;
 	private ConcurrentHashMap<String, CheckPlayer> checkPlayers;
+	private List<UUID> entityUUIDs;
 	private BukkitTask claimTask;
 	private BukkitTask mobsTask;
 	public List<World> worlds;
@@ -232,6 +235,9 @@ public class ClaimControl extends JavaPlugin {
 		
 		// initialize checkPlayers
 		checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
+		
+		// initialize removedEntities
+		setEntityUUIDs(new ArrayList<UUID>());
 	}
 
 	/**
@@ -310,6 +316,38 @@ public class ClaimControl extends JavaPlugin {
 	 */
 	public void removeCheckPlayer(String playerName) {
 		this.checkPlayers.remove(playerName);
+	}
+
+	/**
+	 * Get removed entities
+	 * @return
+	 */
+	public List<UUID> getEntityUUIDs() {
+		return entityUUIDs;
+	}
+
+	/**
+	 * Set removed entities
+	 * @param removedEntities
+	 */
+	public void setEntityUUIDs(List<UUID> removedEntities) {
+		this.entityUUIDs = removedEntities;
+	}
+
+	/**
+	 * Add removed entity
+	 * @param id
+	 */
+	public void addEntityUUID(UUID id) {
+		this.entityUUIDs.add(id);
+	}
+
+	/**
+	 * Remove entity
+	 * @param id
+	 */
+	public void removeEntityUUID(UUID id) {
+		this.entityUUIDs.remove(id);
 	}
 
 	/**

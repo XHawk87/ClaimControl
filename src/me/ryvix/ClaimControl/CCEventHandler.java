@@ -418,18 +418,24 @@ public class CCEventHandler implements Listener {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 
-		Entity monster = event.getEntity();
+		Entity entity = event.getEntity();
 
 		// only monsters
-		if (!(monster instanceof Monster)) {
+		if (!(entity instanceof Monster)) {
 			return;
 		}
 
 		// if monster is in a claim
-		if (plugin.claim.check(monster.getLocation())) {
+		if (plugin.claim.check(entity.getLocation())) {
 
 			// if no monsters allowed
-			if (!plugin.flags.getMonsters(plugin.claim.getId(monster.getLocation()))) {
+			if (!plugin.flags.getMonsters(plugin.claim.getId(entity.getLocation()))) {
+
+				// don't remove this mob if it's already set to be removed
+				if (plugin.getEntityUUIDs().contains(entity.getUniqueId())) {
+					return;
+				}
+
 				event.setCancelled(true);
 			}
 		}

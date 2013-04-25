@@ -29,6 +29,10 @@ public class Claim {
 	 */
 	public boolean canEnter(Player player, Location location) {
 		long claimid = getId(location);
+		if (claimid == 0) {
+			return true;
+		}
+
 		String playerName = player.getName();
 
 		// fee to enter
@@ -87,20 +91,31 @@ public class Claim {
 	 * @param coords
 	 * @return
 	 */
-	Boolean check(Location coords) {
+	Boolean check(Location loc) {
+		try {
 
-		if (GriefPrevention.instance == null) {
-			System.out.println("GriefPrevention.instance is null!");
-		} else if (GriefPrevention.instance.dataStore == null) {
-			System.out.println("GriefPrevention.instance.dataStore is null!");
-		} else if (coords == null) {
-			System.out.println("coords is null!");
+			// check if Grief Prevention is enabled in this world
+			if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+
+				// get claim
+				me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+				if (claim != null) {
+					return true;
+				}
+
+			}
+
+		} catch (Exception e) {
+
+			if (GriefPrevention.instance == null) {
+				plugin.getLogger().warning("GriefPrevention.instance is null! Please report this to ClaimControl.");
+			} else if (GriefPrevention.instance.dataStore == null) {
+				plugin.getLogger().warning("GriefPrevention.instance.dataStore is null! Please report this to ClaimControl.");
+			}
+
+			plugin.getLogger().warning(e.getMessage());
 		}
 
-		me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(coords, true, null);
-		if (claim != null) {
-			return true;
-		}
 		return false;
 	}
 
@@ -111,9 +126,16 @@ public class Claim {
 	 * @return
 	 */
 	public long getId(Location loc) {
-		me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
-		if (claim != null) {
-			return claim.getID();
+
+		// check if Grief Prevention is enabled in this world
+		if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+
+			// get claim
+			me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+			if (claim != null) {
+				Long claimid = claim.getID();
+				return claimid;
+			}
 		}
 		return 0L;
 	}
@@ -125,9 +147,15 @@ public class Claim {
 	 * @return
 	 */
 	public String getOwner(Location loc) {
-		me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
-		if (claim != null) {
-			return claim.getOwnerName();
+
+		// check if Grief Prevention is enabled in this world
+		if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+
+			// get claim
+			me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+			if (claim != null) {
+				return claim.getOwnerName();
+			}
 		}
 		return null;
 	}
