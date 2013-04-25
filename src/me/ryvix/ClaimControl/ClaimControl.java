@@ -454,7 +454,7 @@ public class ClaimControl extends JavaPlugin {
 			}
 
 			// reload the plugin
-			if (args[0].equalsIgnoreCase("reload")) {
+			if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("claimcontrol.admin")) {
 				getServer().getPluginManager().disablePlugin(this);
 				getServer().getPluginManager().enablePlugin(this);
 				getLogger().info("Reloaded");
