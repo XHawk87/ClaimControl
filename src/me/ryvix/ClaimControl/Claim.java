@@ -8,8 +8,6 @@
 
 package me.ryvix.ClaimControl;
 
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -95,10 +93,10 @@ public class Claim {
 		try {
 
 			// check if Grief Prevention is enabled in this world
-			if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+			if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 				// get claim
-				me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+				me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
 				if (claim != null) {
 					return true;
 				}
@@ -107,10 +105,10 @@ public class Claim {
 
 		} catch (Exception e) {
 
-			if (GriefPrevention.instance == null) {
-				plugin.getLogger().warning("GriefPrevention.instance is null! Please report this to ClaimControl.");
-			} else if (GriefPrevention.instance.dataStore == null) {
-				plugin.getLogger().warning("GriefPrevention.instance.dataStore is null! Please report this to ClaimControl.");
+			if (plugin.GP == null) {
+				plugin.getLogger().warning("GriefPrevention instance is null! Please report this to ClaimControl.");
+			} else if (plugin.GP.dataStore == null) {
+				plugin.getLogger().warning("GriefPrevention dataStore is null! Please report this to ClaimControl.");
 			}
 
 			plugin.getLogger().warning(e.getMessage());
@@ -128,10 +126,10 @@ public class Claim {
 	public long getId(Location loc) {
 
 		// check if Grief Prevention is enabled in this world
-		if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+		if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 			// get claim
-			me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+			me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
 			if (claim != null) {
 				Long claimid = claim.getID();
 				return claimid;
@@ -149,10 +147,10 @@ public class Claim {
 	public String getOwner(Location loc) {
 
 		// check if Grief Prevention is enabled in this world
-		if (GriefPrevention.instance.config_claims_enabledWorlds.contains(loc.getWorld())) {
+		if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 			// get claim
-			me.ryanhamshire.GriefPrevention.Claim claim = GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+			me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
 			if (claim != null) {
 				return claim.getOwnerName();
 			}

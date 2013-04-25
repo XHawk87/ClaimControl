@@ -10,8 +10,6 @@ package me.ryvix.ClaimControl;
 
 import java.util.UUID;
 
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
@@ -36,7 +34,7 @@ public class MobsTask extends BukkitRunnable {
 
 		// check each world
 		for (World world : plugin.worlds) {
-			if (GriefPrevention.instance.config_claims_enabledWorlds.contains(world)) {
+			if (plugin.GP.config_claims_enabledWorlds.contains(world)) {
 
 				// check each LivingEntity in the world
 				for (LivingEntity entity : world.getLivingEntities()) {

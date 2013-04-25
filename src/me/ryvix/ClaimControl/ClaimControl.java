@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.milkbowl.vault.economy.Economy;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import me.ryvix.ClaimControl.Claim;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,6 +45,7 @@ public class ClaimControl extends JavaPlugin {
 	private BukkitTask mobsTask;
 	public List<World> worlds;
 	public String dbType;
+	public GriefPrevention GP;
 
 	/**
 	 * Runs when plugin is enabled
@@ -138,6 +140,7 @@ public class ClaimControl extends JavaPlugin {
 		mobsTask = null;
 		worlds = null;
 		dbType = null;
+		GP = null;
 	}
 
 	/**
@@ -215,6 +218,8 @@ public class ClaimControl extends JavaPlugin {
 	 * 
 	 */
 	public void setVariables() {
+		
+		GP = new GriefPrevention();
 
 		worlds = getServer().getWorlds();
 		dbType = config.getString("config.database").toLowerCase();
