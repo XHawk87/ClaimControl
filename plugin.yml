@@ -1,6 +1,6 @@
 main: me.ryvix.ClaimControl.ClaimControl
 name: ClaimControl
-version: 1.02b
+version: 1.03b
 author: ryvix
 description: Provides more control over Grief Prevention claims.
 depend: [GriefPrevention, SQLibrary]
