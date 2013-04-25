@@ -219,7 +219,7 @@ public class ClaimControl extends JavaPlugin {
 	 */
 	public void setVariables() {
 		
-		GP = new GriefPrevention();
+		GP = GriefPrevention.instance;
 
 		worlds = getServer().getWorlds();
 		dbType = config.getString("config.database").toLowerCase();
