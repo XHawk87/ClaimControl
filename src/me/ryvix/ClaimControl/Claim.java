@@ -17,6 +17,11 @@ public class Claim {
 	public Claim(ClaimControl plugin) {
 		Claim.plugin = plugin;
 	}
+	
+	public me.ryanhamshire.GriefPrevention.Claim getGPClaim(Location location) {
+		me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(location, false, null);
+		return claim;
+	}
 
 	/**
 	 * Check if a player can enter an area
@@ -89,15 +94,14 @@ public class Claim {
 	 * @param coords
 	 * @return
 	 */
-	Boolean check(Location loc) {
+	public Boolean check(Location loc) {
 		try {
 
 			// check if Grief Prevention is enabled in this world
 			if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 				// get claim
-				me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
-				if (claim != null) {
+				if (getGPClaim(loc) != null) {
 					return true;
 				}
 
@@ -129,10 +133,20 @@ public class Claim {
 		if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 			// get claim
-			me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
+			me.ryanhamshire.GriefPrevention.Claim claim = getGPClaim(loc);
 			if (claim != null) {
-				Long claimid = claim.getID();
-				return claimid;
+				
+				if (claim.parent == null) {
+					// parent claim
+					Long claimid = claim.getID();
+					return claimid;
+
+				} else {
+					// GP has a bug where subdivision don't get id's
+					// As a workaround we will just use the parent claim until this is fixed
+					Long claimid = claim.parent.getID();
+					return claimid;
+				}
 			}
 		}
 		return 0L;
@@ -150,7 +164,7 @@ public class Claim {
 		if (plugin.GP.config_claims_enabledWorlds.contains(loc.getWorld())) {
 
 			// get claim
-			me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(loc, true, null);
+			me.ryanhamshire.GriefPrevention.Claim claim = getGPClaim(loc);
 			if (claim != null) {
 				return claim.getOwnerName();
 			}
