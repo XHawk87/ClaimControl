@@ -363,11 +363,6 @@ public class CCEventHandler implements Listener {
 
 		Entity combuster = event.getCombuster();
 
-		// check if entity dealing damage is a player
-		if (!(combuster instanceof Player)) {
-			return;
-		}
-
 		// check if combuster is a projectile
 		if (combuster instanceof Projectile) {
 
