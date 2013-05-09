@@ -1,12 +1,11 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.util.Map.Entry;
 
@@ -19,12 +18,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * ClaimTasks
- * 
+ *
  * Checks claim access for all players that have moved since last check.
- * 
+ *
  * Will teleport players outside the lower corner who have no access to the claim they are in.
  */
 public class ClaimTask extends BukkitRunnable {
+
 	private final ClaimControl plugin;
 
 	// Constructor
@@ -80,7 +80,6 @@ public class ClaimTask extends BukkitRunnable {
 						// Eject player from the claim (outside lower corner)
 						GriefPrevention gp = new GriefPrevention();
 						gp.ejectPlayer(player);
-						gp = null;
 
 						// Tell them they have no access
 						player.sendMessage(ChatColor.RED + "You aren't allowed there!");

@@ -1,18 +1,18 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.MySQL;
 import lib.PatPeter.SQLibrary.SQLite;
@@ -37,7 +37,7 @@ public class SQLFunctions {
 	/**
 	 * Connect to database
 	 */
-	public void connect() {
+	public static void connect() {
 		if (!sql.isOpen()) {
 			sql.open();
 		}
@@ -60,7 +60,7 @@ public class SQLFunctions {
 
 	/**
 	 * Close a PreparedStatement
-	 * 
+	 *
 	 * @param statement
 	 */
 	private void close(PreparedStatement statement) {
@@ -68,14 +68,14 @@ public class SQLFunctions {
 			try {
 				statement.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 			}
 		}
 	}
 
 	/**
 	 * Close a ResultSet
-	 * 
+	 *
 	 * @param results
 	 */
 	private void close(ResultSet results) {
@@ -83,14 +83,14 @@ public class SQLFunctions {
 			try {
 				results.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 			}
 		}
 	}
 
 	/**
 	 * Create MySQL table
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	public void createTable() {
@@ -114,7 +114,7 @@ public class SQLFunctions {
 				sql.query(statement);
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 			} finally {
 				close(statement);
@@ -125,7 +125,7 @@ public class SQLFunctions {
 
 	/**
 	 * Insert flag into database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @param value
@@ -145,7 +145,7 @@ public class SQLFunctions {
 			sql.query(statement);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -154,7 +154,7 @@ public class SQLFunctions {
 
 	/**
 	 * Update flag in database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @param value
@@ -173,7 +173,7 @@ public class SQLFunctions {
 			sql.query(statement);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -182,7 +182,7 @@ public class SQLFunctions {
 
 	/**
 	 * Delete flag from database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @throws SQLException
@@ -199,7 +199,7 @@ public class SQLFunctions {
 			sql.query(statement);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -208,7 +208,7 @@ public class SQLFunctions {
 
 	/**
 	 * Delete flag from database by player
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @throws SQLException
@@ -226,7 +226,7 @@ public class SQLFunctions {
 			sql.query(statement);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -235,7 +235,7 @@ public class SQLFunctions {
 
 	/**
 	 * Select all flags a claim has
-	 * 
+	 *
 	 * @param long1
 	 * @return List<String>
 	 * @throws SQLException
@@ -260,7 +260,7 @@ public class SQLFunctions {
 			return flags;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -272,7 +272,7 @@ public class SQLFunctions {
 
 	/**
 	 * Select all values from a flag
-	 * 
+	 *
 	 * @param long1
 	 * @param flag
 	 * @return List<String>
@@ -299,7 +299,7 @@ public class SQLFunctions {
 			return flags;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);
@@ -311,7 +311,7 @@ public class SQLFunctions {
 
 	/**
 	 * Select one flag a claim has - with player
-	 * 
+	 *
 	 * @param long1
 	 * @param flag
 	 * @return List<String>
@@ -339,7 +339,7 @@ public class SQLFunctions {
 			return flags;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "SQL Error: {0}", e.getMessage());
 
 		} finally {
 			close(statement);

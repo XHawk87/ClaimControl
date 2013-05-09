@@ -1,16 +1,16 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,15 +20,16 @@ import org.bukkit.Location;
 
 public class Flags {
 	// public static String validFlags = "animals|monsters|pvp|entrymsg|exitmsg|charge|time|trust|private|box|allow|deny";
+
 	public static String validFlags = "animals|monsters|pvp|entrymsg|exitmsg|private|allow|deny";
 	private static SQLFunctions sql;
 	private static ClaimControl plugin;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param claimControl
-	 * 
+	 *
 	 * @param sql
 	 */
 	public Flags(ClaimControl claimControl, SQLFunctions sql) {
@@ -38,7 +39,7 @@ public class Flags {
 
 	/**
 	 * Checks if flag is a valid flag
-	 * 
+	 *
 	 * @param input
 	 * @return
 	 */
@@ -57,13 +58,13 @@ public class Flags {
 
 	/**
 	 * List flags
-	 * 
+	 *
 	 * @param loc
 	 * @return
 	 */
 	public String list(Location loc) {
-		List<String> flags = new ArrayList<String>();
-		String output = "";
+		List<String> flags;
+		String output;
 		try {
 
 			flags = sql.select(plugin.claim.getId(loc));
@@ -99,7 +100,7 @@ public class Flags {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 			return ChatColor.RED + "Sorry, there was an error retrieving flags for this claim.";
 		}
 
@@ -108,13 +109,13 @@ public class Flags {
 
 	/**
 	 * List values of a flag
-	 * 
+	 *
 	 * @param loc
 	 * @return
 	 */
 	public String list(Location loc, String flag) {
-		List<String> values = new ArrayList<String>();
-		String output = "";
+		List<String> values;
+		String output;
 		try {
 
 			values = sql.select(plugin.claim.getId(loc), flag);
@@ -127,7 +128,7 @@ public class Flags {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 			return ChatColor.RED + "Sorry, there was an error retrieving values for " + flag;
 		}
 
@@ -136,7 +137,7 @@ public class Flags {
 
 	/**
 	 * Removes a flag from the database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 */
@@ -144,13 +145,13 @@ public class Flags {
 		try {
 			sql.delete(claimid, flag);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 	}
 
 	/**
 	 * Removes a flag from the database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @param value
@@ -159,13 +160,13 @@ public class Flags {
 		try {
 			sql.delete(claimid, flag, value);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 	}
 
 	/**
 	 * Adds a flag and value to the database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @param value
@@ -174,13 +175,13 @@ public class Flags {
 		try {
 			sql.insert(claimid, flag, value);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 	}
 
 	/**
 	 * Gets a flag's value from the database
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @return
@@ -189,20 +190,20 @@ public class Flags {
 		try {
 			List<String> values = sql.select(claimid, flag);
 
-			if (values.size() == 0) {
+			if (values.isEmpty()) {
 				return null;
 			}
 			return values.get(0);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 		return null;
 	}
 
 	/**
 	 * Gets a flag's value using a value
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @param value
@@ -212,19 +213,19 @@ public class Flags {
 		try {
 			List<String> values = sql.select(claimid, flag, value);
 
-			if (values.size() == 0) {
+			if (values.isEmpty()) {
 				return null;
 			}
 			return values.get(0);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 		return null;
 	}
 
 	/**
 	 * Check if a flag exists for a claim
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @return
@@ -233,19 +234,19 @@ public class Flags {
 		try {
 			List<String> values = sql.select(claimid, flag);
 
-			if (values.size() == 0) {
+			if (values.isEmpty()) {
 				return false;
 			}
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 		return false;
 	}
 
 	/**
 	 * Check if a flag with value exists for a claim
-	 * 
+	 *
 	 * @param claimid
 	 * @param flag
 	 * @return
@@ -254,12 +255,12 @@ public class Flags {
 		try {
 			List<String> values = sql.select(claimid, flag, value);
 
-			if (values.size() == 0) {
+			if (values.isEmpty()) {
 				return false;
 			}
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 		return false;
 	}
@@ -267,7 +268,6 @@ public class Flags {
 	/**
 	 * Set flags
 	 */
-
 	public void setAnimals(Long claimid, String value) {
 		addFlag(claimid, "animals", value);
 	}
@@ -333,7 +333,6 @@ public class Flags {
 	/**
 	 * Get flags
 	 */
-
 	public boolean getAnimals(Long claimid) {
 		String result = getFlag(claimid, "animals");
 		if (result == null) {

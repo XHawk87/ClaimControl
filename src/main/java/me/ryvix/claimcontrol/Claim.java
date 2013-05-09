@@ -1,23 +1,23 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class Claim {
+
 	private static ClaimControl plugin;
 
 	public Claim(ClaimControl plugin) {
 		Claim.plugin = plugin;
 	}
-	
+
 	public me.ryanhamshire.GriefPrevention.Claim getGPClaim(Location location) {
 		me.ryanhamshire.GriefPrevention.Claim claim = plugin.GP.dataStore.getClaimAt(location, false, null);
 		return claim;
@@ -25,7 +25,7 @@ public class Claim {
 
 	/**
 	 * Check if a player can enter an area
-	 * 
+	 *
 	 * @param player
 	 * @param location
 	 * @return
@@ -90,7 +90,7 @@ public class Claim {
 
 	/**
 	 * Checks if location is in a claim or not
-	 * 
+	 *
 	 * @param coords
 	 * @return
 	 */
@@ -123,7 +123,7 @@ public class Claim {
 
 	/**
 	 * Get a claims id value
-	 * 
+	 *
 	 * @param location
 	 * @return
 	 */
@@ -135,7 +135,7 @@ public class Claim {
 			// get claim
 			me.ryanhamshire.GriefPrevention.Claim claim = getGPClaim(loc);
 			if (claim != null) {
-				
+
 				if (claim.parent == null) {
 					// parent claim
 					Long claimid = claim.getID();
@@ -154,7 +154,7 @@ public class Claim {
 
 	/**
 	 * Get a claims owner value
-	 * 
+	 *
 	 * @param coords
 	 * @return
 	 */

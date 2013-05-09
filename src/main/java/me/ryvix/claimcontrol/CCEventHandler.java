@@ -5,7 +5,7 @@
  * The MIT License (MIT) - See LICENSE.txt
  *
  */
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.util.List;
 

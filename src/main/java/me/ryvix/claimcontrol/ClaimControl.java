@@ -1,21 +1,20 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import net.milkbowl.vault.economy.Economy;
+import java.util.logging.Level;
+//import net.milkbowl.vault.economy.Economy;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
-import me.ryvix.ClaimControl.Claim;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
@@ -38,7 +37,7 @@ public class ClaimControl extends JavaPlugin {
 	private SQLFunctions sql;
 	public Flags flags;
 	public Claim claim;
-	public Economy econ;
+//	public Economy econ;
 	private ConcurrentHashMap<String, CheckPlayer> checkPlayers;
 	private List<UUID> entityUUIDs;
 	private BukkitTask claimTask;
@@ -49,8 +48,9 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Runs when plugin is enabled
-	 * 
+	 *
 	 */
+	@Override
 	public void onEnable() {
 
 		// check for GriefPrevention plugin
@@ -85,13 +85,13 @@ public class ClaimControl extends JavaPlugin {
 			if (!configFile.exists()) {
 				getDataFolder().mkdir();
 				this.getConfig().options().copyDefaults(true);
-				this.getConfig().options().header("ClaimControl config file\n" + "message: The message to display when denying entry. Default Access denied!");
+				this.getConfig().options().header("ClaimControl config file\n");
 				this.getConfig().options().copyHeader(true);
 				this.saveConfig();
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 
 		// load config file
@@ -104,7 +104,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Setup Vault Economy
-	 * 
+	 *
 	 * @return
 	 */
 	/*
@@ -116,11 +116,11 @@ public class ClaimControl extends JavaPlugin {
 	 * 
 	 * return econ != null; }
 	 */
-
 	/**
 	 * Runs when plugin is disabled
-	 * 
+	 *
 	 */
+	@Override
 	public void onDisable() {
 
 		// stop tasks
@@ -134,7 +134,7 @@ public class ClaimControl extends JavaPlugin {
 		sql = null;
 		flags = null;
 		claim = null;
-		econ = null;
+//		econ = null;
 		checkPlayers = null;
 		claimTask = null;
 		mobsTask = null;
@@ -145,7 +145,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Load config values
-	 * 
+	 *
 	 */
 	public void loadConfig() {
 
@@ -215,10 +215,10 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Set config variables
-	 * 
+	 *
 	 */
 	public void setVariables() {
-		
+
 		GP = GriefPrevention.instance;
 
 		worlds = getServer().getWorlds();
@@ -237,10 +237,10 @@ public class ClaimControl extends JavaPlugin {
 
 		// claim functions
 		claim = new Claim(this);
-		
+
 		// initialize checkPlayers
 		checkPlayers = new ConcurrentHashMap<String, CheckPlayer>();
-		
+
 		// initialize removedEntities
 		setEntityUUIDs(new ArrayList<UUID>());
 	}
@@ -252,7 +252,7 @@ public class ClaimControl extends JavaPlugin {
 		// Claim task
 		long claimTaskTime = Long.valueOf(config.getInt("config.check_claims_ticks"));
 		if (claimTaskTime > 0) {
-			this.getLogger().info("Starting claim check task. check_claims_ticks: " + config.getInt("config.check_claims_ticks"));
+			this.getLogger().log(Level.INFO, "Starting claim check task. check_claims_ticks: {0}", config.getInt("config.check_claims_ticks"));
 			// claimTask = new ClaimTask(this).runTaskTimerAsynchronously(this, 0, claimTaskTime);
 			claimTask = new ClaimTask(this).runTaskTimer(this, 0, claimTaskTime);
 		}
@@ -260,7 +260,7 @@ public class ClaimControl extends JavaPlugin {
 		// Mobs task
 		long mobsTaskTime = Long.valueOf(config.getInt("config.remove_monsters_ticks"));
 		if (mobsTaskTime > 0) {
-			this.getLogger().info("Starting monster removal task. remove_monsters_ticks: " + config.getInt("config.remove_monsters_ticks"));
+			this.getLogger().log(Level.INFO, "Starting monster removal task. remove_monsters_ticks: {0}", config.getInt("config.remove_monsters_ticks"));
 			mobsTask = new MobsTask(this).runTaskTimer(this, 0, mobsTaskTime);
 		}
 	}
@@ -284,7 +284,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Get players to check for claim permissions
-	 * 
+	 *
 	 * @return
 	 */
 	public ConcurrentHashMap<String, CheckPlayer> getCheckPlayers() {
@@ -293,7 +293,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Get a player to check for claim permissions
-	 * 
+	 *
 	 * @param playerName
 	 * @return
 	 */
@@ -303,7 +303,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Add a player to check for claim permissions
-	 * 
+	 *
 	 * @param playerName
 	 * @param checkPlayer
 	 */
@@ -316,7 +316,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Remove a player to check for claim permissions
-	 * 
+	 *
 	 * @param playerName
 	 */
 	public void removeCheckPlayer(String playerName) {
@@ -325,6 +325,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Get removed entities
+	 *
 	 * @return
 	 */
 	public List<UUID> getEntityUUIDs() {
@@ -333,6 +334,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Set removed entities
+	 *
 	 * @param removedEntities
 	 */
 	public void setEntityUUIDs(List<UUID> removedEntities) {
@@ -341,6 +343,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Add removed entity
+	 *
 	 * @param id
 	 */
 	public void addEntityUUID(UUID id) {
@@ -349,6 +352,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Remove entity
+	 *
 	 * @param id
 	 */
 	public void removeEntityUUID(UUID id) {
@@ -357,7 +361,7 @@ public class ClaimControl extends JavaPlugin {
 
 	/**
 	 * Commands
-	 * 
+	 *
 	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -483,7 +487,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player listing flags in a claim
-					 * 
+					 *
 					 * @usage /claimcontrol list
 					 * @permission claimcontrol.list
 					 */
@@ -510,7 +514,6 @@ public class ClaimControl extends JavaPlugin {
 					/**
 					 * Toggles
 					 */
-
 					// toggle private flag
 					if (args[0].equalsIgnoreCase("private") && player.hasPermission("claimcontrol.flags.private")) {
 
@@ -582,7 +585,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player trying to add a new flag but not enough args
-					 * 
+					 *
 					 * @usage /claimcontrol add <flag>
 					 * @permission claimcontrol.add
 					 */
@@ -644,7 +647,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player trying to remove a flag but not enough args
-					 * 
+					 *
 					 * @usage /claimcontrol remove <flag>
 					 * @permission claimcontrol.remove
 					 */
@@ -750,7 +753,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player listing flags in a claim
-					 * 
+					 *
 					 * @usage /claimcontrol list <flag>
 					 * @permission claimcontrol.list
 					 */
@@ -786,7 +789,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player adding a new flag
-					 * 
+					 *
 					 * @usage /claimcontrol add <flag> <value>
 					 * @permission claimcontrol.add
 					 */
@@ -804,25 +807,19 @@ public class ClaimControl extends JavaPlugin {
 							if (!flags.valid(args[1])) {
 								player.sendMessage(ChatColor.RED + "Valid flags: " + Flags.validFlags);
 								return true;
-							} else
-
-							// there can be multiple allow and deny flags
+							} else // there can be multiple allow and deny flags
 							if (args[1].equalsIgnoreCase("allow") || args[1].equalsIgnoreCase("deny")) {
 
 								// check if claim has the flag and value
 								if (flags.hasFlag(claimid, args[1], args[2])) {
 									player.sendMessage(ChatColor.RED + args[1] + " already has " + args[2] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("allow") && player.hasPermission("claimcontrol.flags.allow")) {
 									flags.setAllow(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// deny someone from enterying a public claim
+								} else // deny someone from enterying a public claim
 								if (args[1].equalsIgnoreCase("deny") && player.hasPermission("claimcontrol.flags.deny")) {
 									flags.setDeny(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
@@ -835,9 +832,7 @@ public class ClaimControl extends JavaPlugin {
 								if (flags.hasFlag(claimid, args[1])) {
 									player.sendMessage(ChatColor.RED + args[1] + " already has " + args[2] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("animals") && player.hasPermission("claimcontrol.flags.animals")) {
 									flags.setAnimals(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
@@ -849,53 +844,39 @@ public class ClaimControl extends JavaPlugin {
 									flags.setMonsters(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("pvp") && player.hasPermission("claimcontrol.flags.pvp")) {
 									flags.setPvp(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("charge") && player.hasPermission("claimcontrol.flags.charge")) {
 									flags.setCharge(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("time") && player.hasPermission("claimcontrol.flags.time")) {
 									flags.setTime(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("entrymsg") && player.hasPermission("claimcontrol.flags.entrymsg")) {
 									String entryMsg = StringUtils.join(args, " ", 2, args.length);
 									flags.setEntryMsg(claimid, entryMsg);
 									player.sendMessage(ChatColor.GREEN + "Entry message set to: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes("&".charAt(0), entryMsg));
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("exitmsg") && player.hasPermission("claimcontrol.flags.exitmsg")) {
 									String exitMsg = StringUtils.join(args, " ", 2, args.length);
 									flags.setExitMsg(claimid, exitMsg);
 									player.sendMessage(ChatColor.GREEN + "Exit message set to: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes("&".charAt(0), exitMsg));
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("private") && player.hasPermission("claimcontrol.flags.private")) {
 									flags.setPrivate(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else
-
-								// allow someone into a private claim
+								} else // allow someone into a private claim
 								if (args[1].equalsIgnoreCase("box") && player.hasPermission("claimcontrol.flags.box")) {
 									flags.setBox(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
@@ -910,7 +891,7 @@ public class ClaimControl extends JavaPlugin {
 
 					/**
 					 * Player removing a flag
-					 * 
+					 *
 					 * @usage /claimcontrol remove <flag> <value>
 					 * @permission claimcontrol.flags.remove
 					 */

@@ -1,12 +1,11 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import org.bukkit.Location;
 
@@ -15,13 +14,14 @@ import org.bukkit.Location;
  * Used for saving their locations for each check to see where they were.
  */
 public class CheckPlayer {
+
 	private String name;
 	private Location location;
 
 	// constructor
 	public CheckPlayer(String n, Location l) {
-		this.setName(n);
-		this.setLocation(l);
+		this.name = n;
+		this.location = l;
 	}
 
 	// get player name
@@ -34,11 +34,12 @@ public class CheckPlayer {
 		this.name = name;
 	}
 
-	//
+	// get player's location
 	public Location getLocation() {
 		return location;
 	}
 
+	// set player's location
 	synchronized void setLocation(Location location) {
 		this.location = location;
 	}

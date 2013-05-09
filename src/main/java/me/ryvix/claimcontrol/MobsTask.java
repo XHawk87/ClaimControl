@@ -1,12 +1,11 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
-package me.ryvix.ClaimControl;
+package me.ryvix.claimcontrol;
 
 import java.util.UUID;
 
@@ -18,10 +17,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * MobsTask
- * 
+ *
  * Checks claims for monsters and removes them if necessary.
  */
 public class MobsTask extends BukkitRunnable {
+
 	private final ClaimControl plugin;
 
 	// Constructor
