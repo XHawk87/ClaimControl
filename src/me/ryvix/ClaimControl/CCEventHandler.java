@@ -327,6 +327,11 @@ public class CCEventHandler implements Listener {
 
 		Entity damager = event.getDamager();
 
+		// check if entity dealing damage is a player
+		if (!(damager instanceof Player)) {
+			return;
+		}
+
 		// if player is in a claim
 		if (plugin.claim.check(victim.getLocation())) {
 
