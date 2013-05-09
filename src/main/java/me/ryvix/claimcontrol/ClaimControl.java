@@ -814,13 +814,13 @@ public class ClaimControl extends JavaPlugin {
 								if (flags.hasFlag(claimid, args[1], args[2])) {
 									player.sendMessage(ChatColor.RED + args[1] + " already has " + args[2] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("allow") && player.hasPermission("claimcontrol.flags.allow")) {
+								} else if (args[1].equalsIgnoreCase("allow") && player.hasPermission("claimcontrol.flags.allow")) {
+									// allow someone into a private claim
 									flags.setAllow(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // deny someone from enterying a public claim
-								if (args[1].equalsIgnoreCase("deny") && player.hasPermission("claimcontrol.flags.deny")) {
+								} else if (args[1].equalsIgnoreCase("deny") && player.hasPermission("claimcontrol.flags.deny")) {
+									// deny someone from enterying a public claim
 									flags.setDeny(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
@@ -832,52 +832,50 @@ public class ClaimControl extends JavaPlugin {
 								if (flags.hasFlag(claimid, args[1])) {
 									player.sendMessage(ChatColor.RED + args[1] + " already has " + args[2] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("animals") && player.hasPermission("claimcontrol.flags.animals")) {
+								} else if (args[1].equalsIgnoreCase("animals") && player.hasPermission("claimcontrol.flags.animals")) {
+									// allow animals
 									flags.setAnimals(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								}
-
-								// allow someone into a private claim
-								if (args[1].equalsIgnoreCase("monsters") && player.hasPermission("claimcontrol.flags.monsters")) {
+								} else if (args[1].equalsIgnoreCase("monsters") && player.hasPermission("claimcontrol.flags.monsters")) {
+									// allow monsters
 									flags.setMonsters(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("pvp") && player.hasPermission("claimcontrol.flags.pvp")) {
+								} else if (args[1].equalsIgnoreCase("pvp") && player.hasPermission("claimcontrol.flags.pvp")) {
+									// allow pvp
 									flags.setPvp(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("charge") && player.hasPermission("claimcontrol.flags.charge")) {
+								} else if (args[1].equalsIgnoreCase("charge") && player.hasPermission("claimcontrol.flags.charge")) {
+									// set charge
 									flags.setCharge(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("time") && player.hasPermission("claimcontrol.flags.time")) {
+								} else if (args[1].equalsIgnoreCase("time") && player.hasPermission("claimcontrol.flags.time")) {
+									// set time
 									flags.setTime(claimid, args[2]);
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("entrymsg") && player.hasPermission("claimcontrol.flags.entrymsg")) {
+								} else if (args[1].equalsIgnoreCase("entrymsg") && player.hasPermission("claimcontrol.flags.entrymsg")) {
+									// set entry message
 									String entryMsg = StringUtils.join(args, " ", 2, args.length);
 									flags.setEntryMsg(claimid, entryMsg);
 									player.sendMessage(ChatColor.GREEN + "Entry message set to: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes("&".charAt(0), entryMsg));
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("exitmsg") && player.hasPermission("claimcontrol.flags.exitmsg")) {
+								} else if (args[1].equalsIgnoreCase("exitmsg") && player.hasPermission("claimcontrol.flags.exitmsg")) {
+									// set exit message
 									String exitMsg = StringUtils.join(args, " ", 2, args.length);
 									flags.setExitMsg(claimid, exitMsg);
 									player.sendMessage(ChatColor.GREEN + "Exit message set to: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes("&".charAt(0), exitMsg));
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("private") && player.hasPermission("claimcontrol.flags.private")) {
+								} else if (args[1].equalsIgnoreCase("private") && player.hasPermission("claimcontrol.flags.private")) {
+									// set private
 									flags.setPrivate(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
-								} else // allow someone into a private claim
-								if (args[1].equalsIgnoreCase("box") && player.hasPermission("claimcontrol.flags.box")) {
+								} else if (args[1].equalsIgnoreCase("box") && player.hasPermission("claimcontrol.flags.box")) {
+									// set as box
 									flags.setBox(claimid, "true");
 									player.sendMessage(ChatColor.GREEN + args[2] + " added to " + args[1] + "!");
 									return true;
