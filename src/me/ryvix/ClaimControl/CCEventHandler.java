@@ -1,11 +1,10 @@
 /**
- *   ClaimControl - Provides more control over Grief Prevention claims.
- *   Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
+ * ClaimControl - Provides more control over Grief Prevention claims.
+ * Copyright (C) 2013 Ryan Rhode - rrhode@gmail.com
  *
- *   The MIT License (MIT) - See LICENSE.txt
+ * The MIT License (MIT) - See LICENSE.txt
  *
  */
-
 package me.ryvix.ClaimControl;
 
 import java.util.List;
@@ -40,11 +39,12 @@ import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class CCEventHandler implements Listener {
+
 	private final ClaimControl plugin;
 
 	/**
 	 * ClaimControl Event Handler Constructor
-	 * 
+	 *
 	 * @param plugin
 	 */
 	public CCEventHandler(ClaimControl plugin) {
@@ -53,7 +53,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player bed enter
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -73,7 +73,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player empty bucket
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -93,7 +93,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player fill bucket
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -113,7 +113,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player commands
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -133,7 +133,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player interacting with entities
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -153,7 +153,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player interact
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -188,7 +188,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player move
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -200,7 +200,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player pickup item
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -220,7 +220,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player drop item
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -240,7 +240,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player shear
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -260,7 +260,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player teleport
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -280,7 +280,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Detect player portal
-	 * 
+	 *
 	 * @param event
 	 */
 	/*
@@ -292,10 +292,9 @@ public class CCEventHandler implements Listener {
 	 * // keep players out but let admins in claims if ((isClaimFrom || isClaimTo) && (!plugin.claim.canEnter(player, fromLocation) || !plugin.claim.canEnter(player, toLocation)) &&
 	 * !player.hasPermission("claimcontrol.admin")) { event.setCancelled(true); player.sendMessage(ChatColor.RED + "You aren't allowed to go there!"); } }
 	 */
-
 	/**
 	 * Detect portal create
-	 * 
+	 *
 	 * @param event
 	 */
 	/*
@@ -306,10 +305,9 @@ public class CCEventHandler implements Listener {
 	 * // keep players out but let admins in claims if ((isClaimFrom || isClaimTo) && (!plugin.claim.canEnter(player, fromLocation) || !plugin.claim.canEnter(player, toLocation)) &&
 	 * !player.hasPermission("claimcontrol.admin")) { event.setCancelled(true); player.sendMessage(ChatColor.RED + "You aren't allowed to go there!"); } }
 	 */
-
 	/**
 	 * Prevent PvP if PvP is disabled
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -350,7 +348,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Prevent combuster if PvP is disabled
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -363,8 +361,14 @@ public class CCEventHandler implements Listener {
 			return;
 		}
 
-		// check if combuster is a projectile
 		Entity combuster = event.getCombuster();
+
+		// check if entity dealing damage is a player
+		if (!(combuster instanceof Player)) {
+			return;
+		}
+
+		// check if combuster is a projectile
 		if (combuster instanceof Projectile) {
 
 			// if player is in a claim
@@ -382,7 +386,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Prevent splash potions if PvP is disabled
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -391,6 +395,11 @@ public class CCEventHandler implements Listener {
 		List<LivingEntity> affectedEntities = (List<LivingEntity>) event.getAffectedEntities();
 		ThrownPotion potion = event.getPotion();
 		Entity shooter = potion.getShooter();
+
+		// check if entity dealing damage is a player
+		if (!(shooter instanceof Player)) {
+			return;
+		}
 
 		// check all affected entities
 		for (LivingEntity victim : affectedEntities) {
@@ -417,7 +426,7 @@ public class CCEventHandler implements Listener {
 
 	/**
 	 * Prevent monsters if they are disabled
-	 * 
+	 *
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -445,5 +454,4 @@ public class CCEventHandler implements Listener {
 			}
 		}
 	}
-
 }
