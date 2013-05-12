@@ -163,6 +163,21 @@ public class Flags {
 			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 	}
+	
+	/**
+	 * Remove all flags from the database
+	 * @param claimid 
+	 */
+	public void removeAllFlags(long claimid) {
+		try {
+			List<String> flags = sql.select(claimid);
+			for (String flag : flags) {
+				sql.delete(claimid, flag);
+			}
+		} catch (SQLException e) {
+			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
+		}
+	}
 
 	/**
 	 * Adds a flag and value to the database
