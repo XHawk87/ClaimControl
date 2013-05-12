@@ -163,10 +163,11 @@ public class Flags {
 			plugin.getLogger().log(Level.WARNING, "Error: {0}", e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Remove all flags from the database
-	 * @param claimid 
+	 *
+	 * @param claimid
 	 */
 	public void removeAllFlags(long claimid) {
 		try {

@@ -10,8 +10,6 @@ package me.ryvix.claimcontrol;
 import java.util.List;
 import me.ryanhamshire.GriefPrevention.events.ClaimDeletedEvent;
 
-import me.ryvix.claimcontrol.Claim;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -53,25 +51,25 @@ public class CCEventHandler implements Listener {
 	public CCEventHandler(ClaimControl plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	/**
 	 * Remove flags for a claim if it gets deleted in Grief Prevention
-	 * @param event 
+	 *
+	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onClaimDeleted(ClaimDeletedEvent event) {
 		me.ryanhamshire.GriefPrevention.Claim claim = event.getClaim();
-		
+
 		Long claimid;
 		if (claim.parent != null) {
 			claimid = claim.parent.getID();
 		} else {
 			claimid = claim.getID();
 		}
-		
+
 		plugin.claim.remove(claimid);
 	}
-	
 
 	/**
 	 * Detect player bed enter

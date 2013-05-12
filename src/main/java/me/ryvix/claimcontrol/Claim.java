@@ -176,10 +176,11 @@ public class Claim {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	/**
 	 * Remove all flags for a claim
-	 * @param claimid 
+	 *
+	 * @param claimid
 	 */
 	public void remove(long claimid) {
 		plugin.flags.removeAllFlags(claimid);
