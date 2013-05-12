@@ -326,7 +326,7 @@ public class CCEventHandler implements Listener {
 		Entity damager = event.getDamager();
 
 		// check if entity dealing damage is a player
-		if (!(damager instanceof Player)) {
+		if (!(damager instanceof Player) && !(damager instanceof Projectile)) {
 			return;
 		}
 

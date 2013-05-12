@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>me.ryvix</groupId>
-  <artifactId>ClaimControl</artifactId>
-  <version>1.06b</version>
-  <packaging>jar</packaging>
+	<groupId>me.ryvix</groupId>
+	<artifactId>ClaimControl</artifactId>
+	<version>1.07b</version>
+	<packaging>jar</packaging>
 
-  <name>ClaimControl</name>
-  <description>Provides more control over Grief Prevention claims.</description>
-  <url>http://maven.apache.org</url>
+	<name>ClaimControl</name>
+	<description>Provides more control over Grief Prevention claims.</description>
+	<url>http://maven.apache.org</url>
 	<scm>
 		<url>https://github.com/ty2u/ClaimControl</url>
 		<connection>scm:git:git://github.com:ty2u/ClaimControl.git</connection>
@@ -20,38 +20,38 @@
 		<url>https://github.com/ty2u/ClaimControl/issues</url>
 	</issueManagement>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.5.2-R0.2-SNAPSHOT</version>
-    </dependency>
-    <!--<dependency>
-      <groupId>net.milkbowl.vault</groupId>
-      <artifactId>Vault</artifactId>
-      <version>1.2.26-SNAPSHOT</version>
-    </dependency>-->
-    <dependency>
-      <groupId>me.ryanhamshire</groupId>
-      <artifactId>griefprevention</artifactId>
-      <version>7.7</version>
-    </dependency>
-    <dependency>
-      <groupId>lib.PatPeter</groupId>
-      <artifactId>sqlibrary</artifactId>
-      <version>4.2</version>
-    </dependency>
-  </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>1.5.2-R0.2-SNAPSHOT</version>
+		</dependency>
+		<!--<dependency>
+		  <groupId>net.milkbowl.vault</groupId>
+		  <artifactId>Vault</artifactId>
+		  <version>1.2.26-SNAPSHOT</version>
+		</dependency>-->
+		<dependency>
+			<groupId>me.ryanhamshire</groupId>
+			<artifactId>griefprevention</artifactId>
+			<version>7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>lib.PatPeter</groupId>
+			<artifactId>sqlibrary</artifactId>
+			<version>4.2</version>
+		</dependency>
+	</dependencies>
 	<repositories>
 		<repository>
 			<id>bukkit-repo</id>
